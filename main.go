@@ -21,7 +21,12 @@ func main() {
 	ctx := context.Background()
 	client := gpt3.NewClient(apiKey)
 
-	response, err := client.Completion(ctx, gpt3.CompletionRequest{})
+	response, err := client.Completion(ctx, gpt3.CompletionRequest{
+		Prompt:    []string{"The first thing you should know about golang is"},
+		MaxTokens: gpt3.IntPtr(30),
+		Stop:      []string{"."},
+		Echo:      true,
+	})
 
 	if err != nil {
 		log.Fatalln(err)
